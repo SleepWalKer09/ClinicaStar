@@ -1,0 +1,45 @@
+/* index.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  background-color: #f4f4f4; /* Un fondo suave */
+  color: #333; /* Color de texto general */
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+label {
+  font-weight: bold;
+}

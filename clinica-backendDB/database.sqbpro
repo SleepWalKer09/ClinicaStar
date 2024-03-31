@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/chris/Documents/Python/Bootcamps_CodFac/DataEng/database.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1936"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,17:mainHistorial_Clinico"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Citas" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="55"/><column index="2" value="86"/><column index="3" value="105"/><column index="4" value="150"/><column index="5" value="131"/><column index="6" value="305"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Especialistas" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="105"/><column index="2" value="78"/><column index="3" value="86"/><column index="4" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Historial_Clinico" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="83"/><column index="2" value="55"/><column index="3" value="317"/><column index="4" value="186"/><column index="5" value="146"/><column index="6" value="300"/><column index="7" value="109"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Procedimientos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="109"/><column index="2" value="138"/><column index="3" value="300"/><column index="4" value="65"/><column index="5" value="45"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Tratamientos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="109"/><column index="2" value="163"/><column index="3" value="405"/><column index="4" value="65"/><column index="5" value="45"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="Usuarios" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="78"/><column index="2" value="57"/><column index="3" value="68"/><column index="4" value="203"/><column index="5" value="91"/><column index="6" value="86"/><column index="7" value="63"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE Usuarios (
+    ID_Usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nombre TEXT NOT NULL,
+    Apellido TEXT NOT NULL,
+    Email TEXT UNIQUE NOT NULL,
+    Contraseña TEXT NOT NULL,
+    Rol TEXT NOT NULL,
+    Teléfono TEXT
+);
+
+-- Creación de la tabla Especialistas
+CREATE TABLE Especialistas (
+    ID_Especialista INTEGER PRIMARY KEY AUTOINCREMENT,
+    ID_Usuario INTEGER,
+    Especialidad TEXT NOT NULL,
+    Descripción TEXT,
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuarios (ID_Usuario)
+);
+
+-- Creación de la tabla Citas
+CREATE TABLE Citas (
+    ID_Cita INTEGER PRIMARY KEY AUTOINCREMENT,
+    ID_Paciente INTEGER,
+    ID_Especialista INTEGER,
+    Fecha_Hora DATETIME NOT NULL,
+    Estado TEXT NOT NULL,
+    Motivo TEXT,
+    FOREIGN KEY (ID_Paciente) REFERENCES Usuarios (ID_Usuario),
+    FOREIGN KEY (ID_Especialista) REFERENCES Especialistas (ID_Especialista)
+);
+
+-- Creación de la tabla Tratamientos
+CREATE TABLE Tratamientos (
+    ID_Tratamiento INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nombre TEXT NOT NULL,
+    Descripción TEXT,
+    Duración INTEGER,
+    Costo DECIMAL(10, 2)
+);
+
+-- Creación de la tabla Citas_Tratamientos para la relación muchos a muchos
+CREATE TABLE Citas_Tratamientos (
+    ID_Cita INTEGER,
+    ID_Tratamiento INTEGER,
+    PRIMARY KEY (ID_Cita, ID_Tratamiento),
+    FOREIGN KEY (ID_Cita) REFERENCES Citas (ID_Cita),
+    FOREIGN KEY (ID_Tratamiento) REFERENCES Tratamientos (ID_Tratamiento)
+);
+
+CREATE TABLE Historial_Clinico (
+    ID_Historial INTEGER PRIMARY KEY AUTOINCREMENT,
+    ID_Cita INTEGER,
+	Procedimiento_Aplicado TEXT,
+    Notas_Consulta TEXT,
+    Tratamiento_Recomendado TEXT,
+    Medicinas TEXT,
+    Recomendaciones_Adicionales TEXT,
+    Fecha_Consulta DATE,
+    FOREIGN KEY (ID_Cita) REFERENCES Citas (ID_Cita)
+);</sql><sql name="SQL 2">INSERT INTO Usuarios (Nombre, Apellido, Email, Contraseña, Rol, Teléfono) VALUES
+('Luis', 'García', 'wichomessi@hotmail.com', 'contraseña123', 'paciente', '555-1010'),
+('Marta', 'Rodríguez', 'MarRod@gmail.com', 'contraseña123', 'paciente', '555-1011'),
+('Carlos', 'Fernández', 'carlos.fernandez@ClinicaStar.com', 'contraseña123', 'especialista', '555-1012'),
+('Ana', 'Martínez', 'anita_ositos@yahoo.com', 'contraseña123', 'administrador', '555-1013'),
+('Juan', 'Hernández', 'juan.hernandez@ClinicaStar.com', 'contraseña123', 'especialista', '555-1014');
+
+INSERT INTO Especialistas (ID_Usuario, Especialidad, Descripción) VALUES
+((SELECT ID_Usuario FROM Usuarios WHERE Nombre = 'Carlos' AND Apellido = 'Fernández'), 'Ortodoncista', 'Especialista en ortodoncia con 10 años de experiencia.'),
+((SELECT ID_Usuario FROM Usuarios WHERE Nombre = 'Juan' AND Apellido = 'Hernández'), 'Endodoncista', 'Experto en tratamientos de conducto radicular.');
+
+INSERT INTO Citas (ID_Paciente, ID_Especialista, Fecha_Hora, Estado, Motivo) VALUES
+((SELECT ID_Usuario FROM Usuarios WHERE Nombre = 'Luis'), (SELECT ID_Especialista FROM Especialistas WHERE Especialidad = 'Ortodoncista'), '2024-03-20 10:00', 'completada', 'Consulta de ortodoncia'),
+((SELECT ID_Usuario FROM Usuarios WHERE Nombre = 'Marta'), (SELECT ID_Especialista FROM Especialistas WHERE Especialidad = 'Endodoncista'), '2024-03-21 11:00', 'programada', 'Dolor agudo, posible tratamiento de conducto'),
+((SELECT ID_Usuario FROM Usuarios WHERE Nombre = 'Luis'), (SELECT ID_Especialista FROM Especialistas WHERE Especialidad = 'Endodoncista'), '2024-03-22 09:00', 'cancelada', 'Revisión de tratamiento previo'),
+((SELECT ID_Usuario FROM Usuarios WHERE Nombre = 'Marta'), (SELECT ID_Especialista FROM Especialistas WHERE Especialidad = 'Ortodoncista'), '2024-03-23 14:00', 'programada', 'Consulta para brackets'),
+((SELECT ID_Usuario FROM Usuarios WHERE Nombre = 'Luis'), (SELECT ID_Especialista FROM Especialistas WHERE Especialidad = 'Ortodoncista'), '2024-03-24 16:00', 'programada', 'Ajuste de brackets');
+
+ALTER TABLE Tratamientos RENAME TO Procedimientos;
+ALTER TABLE Historial_Clinico ADD Procedimiento_Aplicado TEXT;
+
+
+INSERT INTO Procedimientos (Nombre, Descripción, Duración, Costo) VALUES
+('Limpieza Dental', 'Limpieza dental profunda', 30, 50.00),
+('Extracción Dental', 'Extracción de diente dañado o infectado', 45, 80.00),
+('Blanqueamiento Dental', 'Tratamiento de blanqueamiento para mejorar el color de los dientes', 60, 100.00),
+('Brackets', 'Instalación de brackets metálicos', 120, 800.00),
+('Rellenos Dentales', 'Rellenos para tratar cavidades', 30, 70.00);
+
+INSERT INTO Citas_Tratamientos (ID_Cita, ID_Tratamiento) VALUES
+(1, 1),
+(2, 2),
+(3, 5),
+(4, 4),
+(5, 4);
+
+INSERT INTO Historial_Clinico (ID_Cita, Notas_Consulta,Procedimiento_Aplicado, Tratamiento_Recomendado, Medicinas, Recomendaciones_Adicionales, Fecha_Consulta) VALUES
+(1, 'Consulta inicial, paciente presenta sensibilidad dental', 'Revisión general, Diagnóstico por imágenes', 'Aplicar fluoruro', 'Ibuprofeno para el dolor', 'Evitar alimentos muy fríos o calientes', '2024-03-20'),
+(2, 'Dolor agudo en muela del juicio','Extracción Dental', 'Extracción de muela del juicio', 'Amoxicilina, Ibuprofeno', 'Aplicar hielo en la zona', '2024-03-21'),
+(3, 'Revisión de tratamiento previo, buena evolución','Revisión de amalgama', 'Seguimiento en 6 meses', '', 'Mantener higiene bucal diaria', '2024-03-22'),
+(4, 'Consulta para evaluación de brackets', 'Evaluación Ortodóntica, Instalación de Brackets','Instalación de brackets', '', 'Evitar alimentos duros, cita de seguimiento en un mes', '2024-03-23'),
+(5, 'Ajuste de brackets, sin complicaciones', 'Ajuste de Brackets', 'Revisión mensual', '', 'Usar cera dental si se siente molestia', '2024-03-24');
+</sql><current_tab id="1"/></tab_sql></sqlb_project>
