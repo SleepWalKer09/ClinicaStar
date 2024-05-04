@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import { Modal, Button, Table, Form } from 'react-bootstrap';
 
 const ConsultarHistorialModal = ({ onClose, userRole }) => {
     const [historiales, setHistoriales] = useState([]);
@@ -117,128 +118,135 @@ const ConsultarHistorialModal = ({ onClose, userRole }) => {
     };
 
     return (
-        <div className="modal">
-            <h2>Consultar Historial Clínico</h2>
-            <h3>Ingresa el ID del usuario: </h3>
-            {error && <p className="error">{error}</p>}
-            {userRole === 'Especialista' && (
-                <div>
-                    <input
-                        type="number"
-                        placeholder="ID del usuario"
-                        value={busquedaId || ''} // Corrección: Asegurarse de que busquedaId esté definido
-                        onChange={(e) => setBusquedaId(e.target.value)} // Corrección: Asegurarse de que setBusquedaId esté definido
-                    />
-                    <button onClick={handleBuscar}>Buscar</button>
+        <Modal show={true} onHide={onClose} size="xl">
+            <Modal.Header closeButton>
+                <Modal.Title>Consultar Historial Clínico</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {error && <div className="alert alert-danger">{error}</div>}
+                {userRole === 'Especialista' && (
+                    <Form className="mb-4">
+                        <Form.Group className="mb-3" controlId="busquedaId">
+                            <Form.Label>Ingresa el ID del usuario:</Form.Label>
+                            <Form.Control
+                                type="number"
+                                placeholder="ID del usuario"
+                                value={busquedaId || ''}
+                                onChange={(e) => setBusquedaId(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Button variant="primary" onClick={handleBuscar}>Buscar</Button>
+                    </Form>
+                )}
+                <div className="table-responsive">
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ID Cita</th>
+                                <th>ID Usuario</th>
+                                <th>ID Especialista</th>
+                                <th>ID Procedimiento</th>
+                                <th>Notas Consulta</th>
+                                <th>Tratamiento Recomendado</th>
+                                <th>Medicinas</th>
+                                <th>Recomendaciones Adicionales</th>
+                                <th>Fecha Consulta</th>
+                                {userRole === 'Especialista' && <th>Acciones</th>}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {historiales.map((historial) => (
+                                <tr key={historial.id_historial}>
+                                    <td>{historial.id_historial}</td>
+                                    <td>{historial.id_cita}</td>
+                                    <td>{historial.id_usuario}</td>
+                                    <td>{historial.id_especialista}</td>
+                                    <td>{historial.id_procedimiento}</td>
+                                    <td>{historial.notas_consulta}</td>
+                                    <td>{historial.tratamiento_recomendado}</td>
+                                    <td>{historial.medicinas}</td>
+                                    <td>{historial.recomendaciones_adicionales}</td>
+                                    <td>{new Date(historial.fecha_consulta).toLocaleDateString()}</td>
+                                    {userRole === 'Especialista' && (
+                                        <td>
+                                            <Button variant="outline-primary" size="sm" onClick={() => iniciarEdicionHistorial(historial)}>Editar</Button>{' '}
+                                            <Button variant="outline-danger" size="sm" onClick={() => handleEliminarHistorial(historial.id_historial)}>Eliminar</Button>
+                                        </td>
+                                    )}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
                 </div>
-            )}
-            {historialSeleccionado && (
-                <div>
-                    <h3>Editando Historial Clínico ID: {historialSeleccionado.id_historial}</h3>
-                    {historialSeleccionado && (
-                        <form onSubmit={handleEditarHistorial}>
-                            <div>
-                                <label>Procedimiento:</label>
-                                <select
-                                    name="id_procedimiento"
-                                    value={historialSeleccionado.id_procedimiento}
-                                    onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, id_procedimiento: parseInt(e.target.value) })}
-                                >
-                                    {procedimientos.map(proc => (
-                                        <option key={proc.id_procedimiento} value={proc.id_procedimiento}>{proc.nombre}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div>
-                                <label>Notas de la consulta:</label>
-                                <textarea
-                                    name="notas_consulta"
-                                    value={historialSeleccionado.notas_consulta || ''}
-                                    onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, notas_consulta: e.target.value })}
-                                />
-                            </div>
-                            <div>
-                                <label>Tratamiento recomendado:</label>
-                                <textarea
-                                    name="tratamiento_recomendado"
-                                    value={historialSeleccionado.tratamiento_recomendado || ''}
-                                    onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, tratamiento_recomendado: e.target.value })}
-                                />
-                            </div>
-                            <div>
-                                <label>Medicinas:</label>
-                                <textarea
-                                    name="medicinas"
-                                    value={historialSeleccionado.medicinas || ''}
-                                    onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, medicinas: e.target.value })}
-                                />
-                            </div>
-                            <div>
-                                <label>Recomendaciones adicionales:</label>
-                                <textarea
-                                    name="recomendaciones_adicionales"
-                                    value={historialSeleccionado.recomendaciones_adicionales || ''}
-                                    onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, recomendaciones_adicionales: e.target.value })}
-                                />
-                            </div>
-                            <div>
-                                <label>Fecha de la consulta:</label>
-                                <input
-                                    type="date"
-                                    name="fecha_consulta"
-                                    value={new Date(historialSeleccionado.fecha_consulta).toISOString().split('T')[0]}
-                                    onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, fecha_consulta: new Date(e.target.value).toISOString() })}
-                                />
-                            </div>
-                            <div className="modal-actions">
-                                <button type="submit">Guardar Cambios</button>
-                            </div>
-                        </form>
-                    )}
-                </div>
-            )}
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>ID Cita</th>
-                        <th>ID Usuario</th>
-                        <th>ID Especialista</th>
-                        <th>ID Procedimiento</th>
-                        <th>Notas Consulta</th>
-                        <th>Tratamiento Recomendado</th>
-                        <th>Medicinas</th>
-                        <th>Recomendaciones Adicionales</th>
-                        <th>Fecha Consulta</th>
-                        {userRole === 'Especialista' && <th>Acciones</th>}
-                    </tr>
-                </thead>
-                <tbody>
-                    {historiales.map((historial) => (
-                        <tr key={historial.id_historial}>
-                            <td>{historial.id_historial}</td>
-                            <td>{historial.id_cita}</td>
-                            <td>{historial.id_usuario}</td>
-                            <td>{historial.id_especialista}</td>
-                            <td>{historial.id_procedimiento}</td>
-                            <td>{historial.notas_consulta}</td>
-                            <td>{historial.tratamiento_recomendado}</td>
-                            <td>{historial.medicinas}</td>
-                            <td>{historial.recomendaciones_adicionales}</td>
-                            <td>{new Date(historial.fecha_consulta).toLocaleDateString()}</td>
-                            {userRole === 'Especialista' && (
-                                <td>
-                                    <button onClick={() => iniciarEdicionHistorial(historial)}>Editar</button>
-                                    <button onClick={() => handleEliminarHistorial(historial.id_historial)}>Eliminar</button>
-                                </td>
-                            )}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <button onClick={onClose}>Cerrar</button>
-        </div>
+                {historialSeleccionado && (
+                    <Form onSubmit={handleEditarHistorial}>
+                        <h3>Editando Historial Clínico ID: {historialSeleccionado.id_historial}</h3>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Procedimiento:</Form.Label>
+                            <Form.Select
+                                name="id_procedimiento"
+                                value={historialSeleccionado.id_procedimiento}
+                                onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, id_procedimiento: parseInt(e.target.value) })}
+                            >
+                                {procedimientos.map(proc => (
+                                    <option key={proc.id_procedimiento} value={proc.id_procedimiento}>{proc.nombre}</option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Notas de la consulta:</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="notas_consulta"
+                                value={historialSeleccionado.notas_consulta || ''}
+                                onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, notas_consulta: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Tratamiento recomendado:</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="tratamiento_recomendado"
+                                value={historialSeleccionado.tratamiento_recomendado || ''}
+                                onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, tratamiento_recomendado: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Medicinas:</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="medicinas"
+                                value={historialSeleccionado.medicinas || ''}
+                                onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, medicinas: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Recomendaciones adicionales:</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="recomendaciones_adicionales"
+                                value={historialSeleccionado.recomendaciones_adicionales || ''}
+                                onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, recomendaciones_adicionales: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Fecha de la consulta:</Form.Label>
+                            <Form.Control
+                                type="date"
+                                name="fecha_consulta"
+                                value={new Date(historialSeleccionado.fecha_consulta).toISOString().split('T')[0]}
+                                onChange={e => setHistorialSeleccionado({ ...historialSeleccionado, fecha_consulta: new Date(e.target.value).toISOString() })}
+                            />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">Guardar Cambios</Button>
+                    </Form>
+                )}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onClose}>Cerrar</Button>
+            </Modal.Footer>
+        </Modal>
     );
 };
-
-export default ConsultarHistorialModal
+export default ConsultarHistorialModal;

@@ -68,8 +68,8 @@ body, html {
 /* register */
 .register-btn {
   display: block;
-  margin: 20px auto; /* Centra el botón */
-  background-color: #007bff; /* Azul */
+  margin: 20px auto; 
+  background-color: #007bff; 
   color: white;
   padding: 10px 20px;
   border: none;
@@ -90,15 +90,14 @@ body, html {
   width: 100%;
 }
 
-/* Ajuste para alinear botones horizontalmente */
 .buttons-container {
   margin-top: 20px;
 }
 
 .register-btn, .login-btn {
-  display: inline-block; /* Alinear botones horizontalmente */
-  margin: 0 10px; /* Espacio entre botones */
-  background-color: #007bff; /* Azul */
+  display: inline-block; 
+  margin: 0 10px; 
+  background-color: #007bff; 
   color: white;
   padding: 10px 20px;
   border: none;
@@ -116,13 +115,22 @@ body, html {
 }
 
 .logo {
-  width: 100px; /* Ajusta según el tamaño de tu logo */
+  width: 100px; 
   margin: 0 auto;
 }
 
 /* Calendario */
+.calendar-container {
+  display: flex;
+  justify-content: center; /* Centra el calendario horizontalmente */
+  align-items: start; /* Alinea el calendario en la parte superior del contenedor */
+  flex-grow: 1; /* Permite que el contenedor crezca para llenar el espacio disponible */
+  padding: 20px; /* Agrega algo de espacio alrededor del calendario */
+}
+
 .react-calendar {
   width: 100%;
+  height: auto;
   max-width: 100%;
   font-family: Arial, Helvetica, sans-serif;
   border-radius: 10px;
@@ -131,7 +139,8 @@ body, html {
 }
 
 .react-calendar__tile {
-  max-height: 100px; 
+  max-height: 100px;
+  height: 100px;  
   color: #000; 
 }
 

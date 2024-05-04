@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Modal, Button, Table, Form } from 'react-bootstrap';
 
 const ProcedimientosModal = ({ onClose }) => {
     const [procedimientos, setProcedimientos] = useState([]);
@@ -10,7 +11,7 @@ const ProcedimientosModal = ({ onClose }) => {
         costo: '',
     });
     const [selectedProcedimientoId, setSelectedProcedimientoId] = useState(null);
-    const [modalState, setModalState] = useState('add'); // 'add' para añadir, 'edit' para editar
+    const [modalState, setModalState] = useState('add'); 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -48,7 +49,7 @@ const ProcedimientosModal = ({ onClose }) => {
             await axios.delete(`http://localhost:8000/delete_procedimiento/${procedimientoId}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
-            fetchProcedimientos(); // Recargar lista después de eliminar
+            fetchProcedimientos();
             alert('Procedimiento eliminado con éxito');
         } catch (error) {
             setError('Error al eliminar procedimiento.');
@@ -66,7 +67,7 @@ const ProcedimientosModal = ({ onClose }) => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+        e.preventDefault();
         setLoading(true);
         setError('');
     
@@ -82,8 +83,8 @@ const ProcedimientosModal = ({ onClose }) => {
             }
     
             if (response.data) {
-                fetchProcedimientos(); // Recargar la lista de procedimientos
-                onClose(); // Cerrar el modal
+                fetchProcedimientos();
+                onClose();
                 alert('Procedimiento ' + (modalState === 'edit' ? 'actualizado' : 'añadido') + ' con éxito');
             }
         } catch (error) {
@@ -95,83 +96,95 @@ const ProcedimientosModal = ({ onClose }) => {
     };
 
     return (
-        <div className="modal">
-            <h2>Procedimientos</h2>
-            {error && <div className="error">{error}</div>}
-    
-            {/* Tabla de Procedimientos */}
-            <div>
+        <Modal show={true} onHide={onClose} size="xl">
+            <Modal.Header closeButton>
+                <Modal.Title>Procedimientos</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {error && <div className="alert alert-danger">{error}</div>}
+                
                 <h3>Lista de Procedimientos</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Duración</th>
-                            <th>Costo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {procedimientos.map((procedimiento) => (
-                            <tr key={procedimiento.id_procedimiento}>
-                                <td>{procedimiento.id_procedimiento}</td>
-                                <td>{procedimiento.nombre}</td>
-                                <td>{procedimiento.description}</td>
-                                <td>{procedimiento.duration} min</td>
-                                <td>${procedimiento.costo}</td>
-                                <td>
-                                    <button onClick={() => handleEdit(procedimiento)}>Editar</button>
-                                    <button onClick={() => handleDelete(procedimiento.id_procedimiento)}>Eliminar</button>
-                                </td>
+                <div className="table-responsive">
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Duración</th>
+                                <th>Costo</th>
+                                <th>Acciones</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-    
-            {/* Formulario para Añadir/Editar Procedimientos */}
-            <div>
-                <h3>{modalState === 'edit' ? 'Editar Procedimiento' : 'Añadir Procedimiento'}</h3>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="nombre">Nombre:</label>
-                    <input
-                        type="text"
-                        name="nombre"
-                        value={formData.nombre}
-                        onChange={handleChange}
-                        required
-                    />
-                    <label htmlFor="description">Descripción:</label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                    />
-                    <label htmlFor="duration">Duración (minutos):</label>
-                    <input
-                        type="number"
-                        name="duration"
-                        value={formData.duration}
-                        onChange={handleChange}
-                        required
-                    />
-                    <label htmlFor="costo">Costo:</label>
-                    <input
-                        type="number"
-                        name="costo"
-                        value={formData.costo}
-                        onChange={handleChange}
-                        required
-                    />
-                    <button type="submit" disabled={loading}>{modalState === 'edit' ? 'Actualizar' : 'Añadir'}</button>
-                </form>
-            </div>
-    
-            <button onClick={onClose} disabled={loading}>Cerrar</button>
+                        </thead>
+                        <tbody>
+                            {procedimientos.map((procedimiento) => (
+                                <tr key={procedimiento.id_procedimiento}>
+                                    <td>{procedimiento.id_procedimiento}</td>
+                                    <td>{procedimiento.nombre}</td>
+                                    <td>{procedimiento.description}</td>
+                                    <td>{procedimiento.duration} min</td>
+                                    <td>${procedimiento.costo}</td>
+                                    <td>
+                                        <Button variant="outline-primary" size="sm" onClick={() => handleEdit(procedimiento)}>Editar</Button>{' '}
+                                        <Button variant="outline-danger" size="sm" onClick={() => handleDelete(procedimiento.id_procedimiento)}>Eliminar</Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
+
+                <Form onSubmit={handleSubmit} className="mt-4">
+                <h3>Crear Procedimientos</h3>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Nombre:</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="nombre"
+                            required
+                            value={formData.nombre}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Descripción:</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Duración (minutos):</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="duration"
+                            required
+                            value={formData.duration}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Costo:</Form.Label>
+                        <Form.Control
+                            type="number"
+                            name="costo"
+                            required
+                            value={formData.costo}
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <Button type="submit" variant="primary" disabled={loading}>
+                        {modalState === 'edit' ? 'Actualizar' : 'Añadir'}
+                    </Button>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onClose} disabled={loading}>Cerrar</Button>
+            </Modal.Footer>
             {loading && <p>Cargando...</p>}
-        </div>
+        </Modal>
     );
 };
 

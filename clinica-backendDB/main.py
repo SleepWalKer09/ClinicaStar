@@ -8,19 +8,18 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import crud, schemas, config
 
-
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 origins = [
-    "http://localhost:3000",  # Ajusta según el origen de tu frontend
+    "http://localhost:3000",
 ]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],  # Permite todos los métodos
-    allow_headers=["*"],  # Permite todos los headers
+    allow_methods=["*"],
+    allow_headers=["*"], 
 )
 
 # Dependency to get the database session.

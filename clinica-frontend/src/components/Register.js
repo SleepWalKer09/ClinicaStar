@@ -34,23 +34,50 @@ const Register = () => {
     };
 
     return (
-        <div>
-            <h2>Registro de Usuario</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="nombre" placeholder="Nombre" onChange={handleChange} value={formData.nombre} required />
-                <input type="text" name="apellido" placeholder="Apellido" onChange={handleChange} value={formData.apellido} required />
-                <input type="email" name="email" placeholder="Email" onChange={handleChange} value={formData.email} required />
-                <input type="password" name="password" placeholder="Contraseña" onChange={handleChange} value={formData.password} required />
-                <input type="text" name="phone" placeholder="Teléfono" onChange={handleChange} value={formData.phone} />
-                <input type="number" name="edad" placeholder="Edad" onChange={handleChange} value={formData.edad} /> 
-                <input type="text" name="genero" placeholder="Género" onChange={handleChange} value={formData.genero} /> 
-                <input type="text" name="direccion" placeholder="Dirección" onChange={handleChange} value={formData.direccion} />
-                <input type="text" name="aseguradora" placeholder="Aseguradora" onChange={handleChange} value={formData.aseguradora} />
-                <input type="text" name="alergias" placeholder="Alergias" onChange={handleChange} value={formData.alergias} />
-                <button type="submit">Registrar</button>
-            </form>
+        <div className="container mt-4">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <h2 className="mb-3">Registro de Usuario</h2>
+                    {error && <div className="alert alert-danger">{error}</div>}
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <input type="text" className="form-control" name="nombre" placeholder="Nombre" onChange={handleChange} value={formData.nombre} required />
+                        </div>
+                        <div className="mb-3">
+                            <input type="text" className="form-control" name="apellido" placeholder="Apellido" onChange={handleChange} value={formData.apellido} required />
+                        </div>
+                        <div className="mb-3">
+                            <input type="email" className="form-control" name="email" placeholder="Email" onChange={handleChange} value={formData.email} required />
+                        </div>
+                        <div className="mb-3">
+                            <input type="password" className="form-control" name="password" placeholder="Contraseña" onChange={handleChange} value={formData.password} required />
+                        </div>
+                        <div className="mb-3">
+                            <input type="text" className="form-control" name="phone" placeholder="Teléfono" onChange={handleChange} value={formData.phone} />
+                        </div>
+                        <div className="mb-3">
+                            <input type="number" className="form-control" name="edad" placeholder="Edad" onChange={handleChange} value={formData.edad} />
+                        </div>
+                        <div className="mb-3">
+                            <input type="text" className="form-control" name="genero" placeholder="Género" onChange={handleChange} value={formData.genero} />
+                        </div>
+                        <div className="mb-3">
+                            <input type="text" className="form-control" name="direccion" placeholder="Dirección" onChange={handleChange} value={formData.direccion} />
+                        </div>
+                        <div className="mb-3">
+                            <input type="text" className="form-control" name="aseguradora" placeholder="Aseguradora" onChange={handleChange} value={formData.aseguradora} />
+                        </div>
+                        <div className="mb-3">
+                            <input type="text" className="form-control" name="alergias" placeholder="Alergias" onChange={handleChange} value={formData.alergias} />
+                        </div>
+                        <div className="text-center">
+                            <button type="submit" className="btn btn-primary">Registrar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        );
-    };
-    
-    export default Register;
+        </div>
+    );
+};
+
+export default Register;

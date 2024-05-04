@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { format, parseISO } from 'date-fns';
 import {jwtDecode} from 'jwt-decode';
+import { Modal, Button, Form } from 'react-bootstrap';
+
 
 const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted }) => {
     const [citaData, setCitaData] = useState({
@@ -172,120 +174,144 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
     };
 
     return (
-        <div className="modal">
-            <h2>Detalles de la cita</h2>
-            {error && <p className="error">{error}</p>}
-            <form>
-                <label>Fecha y hora</label>
-                <input
-                    type="datetime-local"
-                    name="fecha_hora"
-                    value={citaData.fecha_hora}
-                    onChange={(e) => setCitaData({ ...citaData, fecha_hora: e.target.value })}
-                    disabled={!isEditing}
-                />
-                <label>Estado</label>
-                <select
-                    name="estado"
-                    value={citaData.estado}
-                    onChange={handleStateChange}
-                    disabled={!isEditing || (userRole === 'Paciente' && citaData.estado === 'completada')}
-                >
-                    <option value="programada">Programada</option>
-                    {userRole === 'Especialista' && <option value="completada">Completada</option>}
-                    <option value="cancelada">Cancelada</option>
-                </select>
-                <label>Motivo</label>
-                <textarea
-                    name="motivo"
-                    value={citaData.motivo}
-                    onChange={(e) => setCitaData({ ...citaData, motivo: e.target.value })}
-                    disabled={!isEditing}
-                />
-            </form>
+        <Modal show={true} onHide={onClose} size="lg">
+        <Modal.Header closeButton>
+            <Modal.Title>Detalles de la cita</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            {error && <div className="alert alert-danger">{error}</div>}
+            <Form>
+                <Form.Group className="mb-3">
+                    <Form.Label>Fecha y hora</Form.Label>
+                    <Form.Control
+                        type="datetime-local"
+                        name="fecha_hora"
+                        value={citaData.fecha_hora}
+                        onChange={handleUpdate}
+                        disabled={!isEditing}
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Estado</Form.Label>
+                    <Form.Select
+                        name="estado"
+                        value={citaData.estado}
+                        onChange={handleStateChange}
+                        disabled={!isEditing || (userRole === 'Paciente' && citaData.estado === 'completada')}
+                    >
+                        <option value="programada">Programada</option>
+                        {userRole === 'Especialista' && <option value="completada">Completada</option>}
+                        <option value="cancelada">Cancelada</option>
+                    </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Motivo</Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        name="motivo"
+                        value={citaData.motivo}
+                        onChange={handleUpdate}
+                        disabled={!isEditing}
+                    />
+                </Form.Group>
+            </Form>
             {citaData.estado === 'completada' && userRole === 'Especialista' && (
                 <>
                     <h3>Historial Clínico</h3>
-                    <form>
-                        <div className="form-group">
-                            <label>Procedimiento:</label>
-                            <select
-                                name="id_procedimiento"
-                                value={historialData.id_procedimiento}
-                                onChange={e => setHistorialData({ ...historialData, id_procedimiento: parseInt(e.target.value) })}
-                            >
-                                {/* Asegúrate de que cada opción tenga como valor el id_procedimiento */}
-                                {procedimientos.map((proc) => (
-                                    <option key={proc.id_procedimiento} value={proc.id_procedimiento}>
-                                        {proc.nombre}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="form-group">
-                        <label>Notas de la consulta:</label>
-                            <textarea
-                                name="notas_consulta"
-                                value={historialData.notas_consulta || ''}
-                                onChange={e => setHistorialData({ ...historialData, notas_consulta: e.target.value })}
-                                placeholder="Detalles sobre la consulta"
-                            />
-                        </div>
-                        <label>Tratamiento recomendado:</label>
-                        <textarea
+                    <Form>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Procedimiento:</Form.Label>
+                        <Form.Select
+                            value={historialData.id_procedimiento}
+                            onChange={e => setHistorialData({ ...historialData, id_procedimiento: e.target.value })}
+                        >
+                            <option value="">Seleccione un procedimiento</option>
+                            {procedimientos.map(proc => (
+                                <option key={proc.id_procedimiento} value={proc.id_procedimiento}>
+                                    {proc.nombre}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                        <Form.Group className="mb-3">
+                        <Form.Label>Notas de la consulta:</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            name="notas_consulta"
+                            value={historialData.notas_consulta || ''}
+                            onChange={e => setHistorialData({ ...historialData, notas_consulta: e.target.value })}
+                            placeholder="Detalles sobre la consulta"
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Tratamiento recomendado:</Form.Label>
+                        <Form.Control
+                            as="textarea"
                             name="tratamiento_recomendado"
                             value={historialData.tratamiento_recomendado || ''}
                             onChange={e => setHistorialData({ ...historialData, tratamiento_recomendado: e.target.value })}
                             placeholder="Tratamiento sugerido post consulta"
                         />
-
-                        <label>Medicinas:</label>
-                        <textarea
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Medicinas:</Form.Label>
+                        <Form.Control
+                            as="textarea"
                             name="medicinas"
                             value={historialData.medicinas || ''}
                             onChange={e => setHistorialData({ ...historialData, medicinas: e.target.value })}
                             placeholder="Medicamentos prescritos, poner *ninguno* si no se receto ninguno"
                         />
-
-                        <label>Recomendaciones adicionales:</label>
-                        <textarea
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Recomendaciones adicionales:</Form.Label>
+                        <Form.Control
+                            as="textarea"
                             name="recomendaciones_adicionales"
                             value={historialData.recomendaciones_adicionales || ''}
                             onChange={e => setHistorialData({ ...historialData, recomendaciones_adicionales: e.target.value })}
                             placeholder="Cuidados adicionales, dieta, etc."
                         />
-                        <div className="modal-actions">
-                            <button type="button" onClick={handleCrearHistorialClinico} disabled={loading}>
+                    </Form.Group>
+                    {/* Botones para acciones específicas del historial */}
+                    {userRole === 'Especialista' && citaData.estado === 'completada' && !isEditing && (
+                        <div className="mt-3">
+                            <Button variant="info" onClick={handleCrearHistorialClinico} disabled={loading}>
                                 Crear Historial Clínico
-                            </button>
+                            </Button>
                         </div>
-                    </form>
-                </>
-            )}
-            <div className="modal-actions">
-            <button
-                onClick={() => {
-                    if (isEditing) {
-                        handleUpdate();
-                    } else {
-                        toggleEdit();
-                    }
-                }}
-                disabled={loading}
-            >
-                {isEditing ? 'Guardar Cambios' : 'Editar Cita'}
-            </button>
-            <button onClick={handleDelete} disabled={loading || isEditing}>Eliminar Cita</button>
-            <button onClick={onClose}>Cerrar</button>
-            </div>
-        </div>
+                    )}
+                    <div className="d-flex justify-content-between">
+                    <Button variant="info" onClick={() => handleCrearHistorialClinico()} disabled={loading}>
+                        Crear Historial Clínico
+                    </Button>
+                    </div>
+                    </Form>
+                    </>
+                )}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button
+                    variant={isEditing ? "success" : "primary"}
+                    onClick={() => {
+                        if (isEditing) {
+                            handleUpdate();
+                        } else {
+                            toggleEdit();
+                        }
+                    }}
+                    disabled={loading}
+                >
+                    {isEditing ? 'Guardar Cambios' : 'Editar Cita'}
+                </Button>
+                <Button variant="danger" onClick={handleDelete} disabled={loading || isEditing}>Eliminar Cita</Button>
+                <Button variant="secondary" onClick={onClose}>Cerrar</Button>
+            </Modal.Footer>
+            {loading && <div>Cargando...</div>}
+            {successMessage && <div className="alert alert-success">{successMessage}</div>}
+        </Modal>
     );    
 };
 
 export default AppointmentDetailsModal;
 
-
-// Se realizo con exito el procedimiento de Limpieza dental, se removio el sarro de todos los dientes junto a una limpieza de lengua
-// Cepillado 3 veces al dia despues de cada comida, Evitar alimentos muy frios o muy calientes debido a sensibilidad de encias y nervios, Comprar cepillo para encias sencibles
-// Enguage bucal Listerine para evitar gengivitis, tomar 5 ML cada 12 horas por 7 dias NO SE DEBE SEGUIR ADMINISTRANDO POR DIAS POSTERIORES, ya que es posible que el paciente genere defensas contra el medicamento
-// Dieta normal, Seguir estrictamente las instrucciones del enguage, usar hilo dental  luego del cepillado.

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import { Modal, Button, Form } from 'react-bootstrap';
 
-const CreateAppointmentModal = ({ onClose, onCitaCreated }) => {
+
+const CreateAppointmentModal = ({ onClose, onCitaCreated, selectedDate }) => {
     const [citaData, setCitaData] = useState({
         fecha_hora: '',
         estado: 'programada',
@@ -31,6 +33,14 @@ const CreateAppointmentModal = ({ onClose, onCitaCreated }) => {
             }
         }
     }, []);
+
+    useEffect(() => {
+        if (selectedDate) {
+            const formattedDate = selectedDate.toISOString().slice(0, 16);
+            setCitaData(data => ({ ...data, fecha_hora: formattedDate }));
+        }
+    }, [selectedDate]);
+
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -61,55 +71,66 @@ const CreateAppointmentModal = ({ onClose, onCitaCreated }) => {
     };
 
     return (
-        <div className="modal">
-            <h2>Crear nueva cita</h2>
-            {error && <p className="error">{error}</p>}
-            <form onSubmit={handleSubmit}>
-                {userRole === 'Especialista' && (
-                    <>
-                        <div>
-                            <label>ID Paciente</label>
-                            <input
-                                type="number"
-                                name="id_paciente"
-                                value={citaData.id_paciente || ''}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label>ID Especialista</label>
-                            <input
-                                type="number"
-                                name="id_especialista"
-                                value={citaData.id_especialista || ''}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                    </>
-                )}
-                <label>Fecha y Hora</label>
-                <input
-                    type="datetime-local"
-                    name="fecha_hora"
-                    value={citaData.fecha_hora}
-                    onChange={handleChange}
-                    required
-                />
-                <label>Motivo</label>
-                <textarea
-                    name="motivo"
-                    value={citaData.motivo}
-                    onChange={handleChange}
-                    required
-                />
-                <button type="submit" disabled={loading}>Crear Cita</button>
-            </form>
-            {loading && <p>Cargando...</p>}
-            {successMessage && <div className="success">{successMessage}</div>}
-            <button onClick={onClose}>Cerrar</button>
-        </div>
+        <Modal show={true} onHide={onClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Crear nueva cita</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {error && <div className="alert alert-danger">{error}</div>}
+                <Form onSubmit={handleSubmit}>
+                    {userRole === 'Especialista' && (
+                        <>
+                            <Form.Group className="mb-3">
+                                <Form.Label>ID Paciente</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="id_paciente"
+                                    value={citaData.id_paciente || ''}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>ID Especialista</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="id_especialista"
+                                    value={citaData.id_especialista || ''}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
+                        </>
+                    )}
+                    <Form.Group className="mb-3">
+                        <Form.Label>Fecha y Hora</Form.Label>
+                        <Form.Control
+                            type="datetime-local"
+                            name="fecha_hora"
+                            value={citaData.fecha_hora}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Motivo</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            name="motivo"
+                            value={citaData.motivo}
+                            onChange={handleChange}
+                            required
+                        />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" disabled={loading}>Crear Cita</Button>
+                </Form>
+                {loading && <p>Cargando...</p>}
+                {successMessage && <div className="alert alert-success">{successMessage}</div>}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onClose}>Cerrar</Button>
+            </Modal.Footer>
+        </Modal>
     );
 };
 

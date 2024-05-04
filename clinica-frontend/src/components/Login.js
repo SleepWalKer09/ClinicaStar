@@ -24,7 +24,7 @@ const Login = () => {
                 }
             });
             localStorage.setItem('token', response.data.access_token);
-            localStorage.setItem('role', response.data.role); // Asegúrate de almacenar el rol aquí
+            localStorage.setItem('role', response.data.role); 
             navigate('/MainPage');
         } catch (error) {
             const errorMessage = error.response?.data?.detail?.msg || 'Error al iniciar sesión. Por favor, verifica tus credenciales y vuelve a intentarlo.';
@@ -33,14 +33,22 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h2>Iniciar Sesión</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <input type="email" name="email" placeholder="Email" onChange={handleChange} value={credentials.email} required />
-                <input type="password" name="password" placeholder="Contraseña" onChange={handleChange} value={credentials.password} required />
-                <button type="submit">Iniciar Sesión</button>
-            </form>
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+            <div className="col-md-4">
+                <h2 className="mb-3 text-center">Iniciar Sesión</h2>
+                {error && <div className="alert alert-danger" role="alert">{error}</div>}
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <input type="email" className="form-control" name="email" placeholder="Email" onChange={handleChange} value={credentials.email} required />
+                    </div>
+                    <div className="mb-3">
+                        <input type="password" className="form-control" name="password" placeholder="Contraseña" onChange={handleChange} value={credentials.password} required />
+                    </div>
+                    <div className="d-grid gap-2">
+                        <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

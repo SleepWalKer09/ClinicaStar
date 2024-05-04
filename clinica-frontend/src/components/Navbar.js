@@ -17,25 +17,42 @@ const Navbar = ({ onLogout, showAddSpecialist, onAddSpecialist, showConsultUsers
     };
 
     return (
-        <nav className="Navbar" style={{ display: 'flex', justifyContent: 'space-between', padding: '10px', backgroundColor: '#f0f0f0', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
-            <div>
-                <span>Clínica Star Platinum</span>
-            </div>
-            <div>
-                {showAddSpecialist && (
-                    <button onClick={onAddSpecialist} style={{ marginRight: '10px' }}>Agregar Especialista</button>
-                )}
-                {userRole === 'Especialista' && (
-                <>
-                    <button onClick={onConsultarUsuarios} style={{ marginRight: '10px' }}>Consultar Usuarios</button>
-                    <button onClick={onProcedimientosClick} style={{ marginRight: '10px' }}>Procedimientos</button>
-                </>
-                )}
-                {(userRole === 'Especialista' || userRole === 'Paciente') && (
-                    <button onClick={onConsultarHistorial} style={{ marginRight: '10px' }}>Consultar Historial</button>
-                )}
-                <button onClick={onOpenProfileModal}>Mi Perfil</button>
-                <button onClick={onLogout}>Cerrar sesión</button>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="#">Clínica Star Platinum</a>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav ms-auto">
+                        {showAddSpecialist && (
+                            <li className="nav-item">
+                                <button className="nav-link btn btn-link" onClick={onAddSpecialist}>Agregar Especialista</button>
+                            </li>
+                        )}
+                        {userRole === 'Especialista' && (
+                            <>
+                                <li className="nav-item">
+                                    <button className="nav-link btn btn-link" onClick={onConsultarUsuarios}>Consultar Usuarios</button>
+                                </li>
+                                <li className="nav-item">
+                                    <button className="nav-link btn btn-link" onClick={onProcedimientosClick}>Procedimientos</button>
+                                </li>
+                            </>
+                        )}
+                        {(userRole === 'Especialista' || userRole === 'Paciente') && (
+                            <li className="nav-item">
+                                <button className="nav-link btn btn-link" onClick={onConsultarHistorial}>Consultar Historial</button>
+                            </li>
+                        )}
+                        <li className="nav-item">
+                            <button className="nav-link btn btn-link" onClick={onOpenProfileModal}>Mi Perfil</button>
+                        </li>
+                        <li className="nav-item">
+                            <button className="nav-link btn btn-link" onClick={onLogout}>Cerrar sesión</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     );

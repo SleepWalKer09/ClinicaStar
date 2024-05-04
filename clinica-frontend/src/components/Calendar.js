@@ -65,25 +65,26 @@ const CalendarComponent = ({ usuario_id, rol, onCitaClick, onDayClick }) => {
                     date.getMonth() === citaDate.getMonth() &&
                     date.getDate() === citaDate.getDate();
             });
-
+    
             if (dayCitas.length > 0) {
                 const estado = dayCitas[0].estado;
-                let color;
+                let colorClass;
                 switch (estado.toLowerCase()) {
                     case 'programada':
-                        color = 'yellow';
+                        colorClass = 'bg-warning';
                         break;
                     case 'completada':
-                        color = 'green';
+                        colorClass = 'bg-success';
                         break;
                     case 'cancelada':
-                        color = 'red';
+                        colorClass = 'bg-danger';
                         break;
                     default:
-                        color = 'grey';
+                        colorClass = 'bg-secondary';
                 }
-
-                return <div style={{ backgroundColor: color, borderRadius: '50%', width: '10px', height: '10px', margin: 'auto' }} />;
+    
+                // Usar una clase de Bootstrap para el color de fondo
+                return <div className={`rounded-circle ${colorClass}`} style={{ width: '10px', height: '10px', margin: 'auto' }} />;
             }
         }
     };

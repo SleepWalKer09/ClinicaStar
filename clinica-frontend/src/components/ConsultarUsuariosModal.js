@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Si es necesario redireccionar después de alguna acción
+import { Modal, Button, Table } from 'react-bootstrap';
 
 const ConsultarUsuariosModal = ({ onClose }) => {
     const [usuarios, setUsuarios] = useState([]);
@@ -47,49 +48,57 @@ const ConsultarUsuariosModal = ({ onClose }) => {
     };
 
     return (
-        <div className="modal">
-            <h2>Consultar Usuarios</h2>
-            {error && <p className="error">{error}</p>}
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Teléfono</th>
-                        <th>Edad</th>
-                        <th>Género</th>
-                        <th>Dirección</th>
-                        <th>Aseguradora</th>
-                        <th>Alergias</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {usuarios.map(usuario => (
-                    <tr key={usuario.id_usuario}>
-                        <td>{usuario.id_usuario}</td>
-                        <td>{usuario.nombre}</td>
-                        <td>{usuario.apellido}</td>
-                        <td>{usuario.email}</td>
-                        <td>{usuario.rol}</td>
-                        <td>{usuario.phone}</td>
-                        <td>{usuario.edad}</td>
-                        <td>{usuario.genero}</td>
-                        <td>{usuario.direccion}</td>
-                        <td>{usuario.aseguradora}</td>
-                        <td>{usuario.alergias}</td>
-                        <td>
-                            <button onClick={() => handleEliminarUsuario(usuario.id_usuario)}>Eliminar</button>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <button onClick={onClose}>Cerrar</button>
-        </div>
+        <Modal show={true} onHide={onClose} size="xl">
+            <Modal.Header closeButton>
+                <Modal.Title>Consultar Usuarios</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {error && <div className="alert alert-danger">{error}</div>}
+                <div className="table-responsive"> {/* Envolver la tabla en este div */}
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Teléfono</th>
+                                <th>Edad</th>
+                                <th>Género</th>
+                                <th>Dirección</th>
+                                <th>Aseguradora</th>
+                                <th>Alergias</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {usuarios.map(usuario => (
+                            <tr key={usuario.id_usuario}>
+                                <td>{usuario.id_usuario}</td>
+                                <td>{usuario.nombre}</td>
+                                <td>{usuario.apellido}</td>
+                                <td>{usuario.email}</td>
+                                <td>{usuario.rol}</td>
+                                <td>{usuario.phone}</td>
+                                <td>{usuario.edad}</td>
+                                <td>{usuario.genero}</td>
+                                <td>{usuario.direccion}</td>
+                                <td>{usuario.aseguradora}</td>
+                                <td>{usuario.alergias}</td>
+                                <td>
+                                    <Button variant="danger" size="sm" onClick={() => handleEliminarUsuario(usuario.id_usuario)}>Eliminar</Button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </Table>
+                </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onClose}>Cerrar</Button>
+            </Modal.Footer>
+        </Modal>
     );
 };
 

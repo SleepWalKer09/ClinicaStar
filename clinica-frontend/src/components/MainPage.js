@@ -100,7 +100,7 @@ const MainPage = () => {
                     userRole={user.role}
                     onConsultarHistorial={openConsultarHistorialModal} // Aquí pasas la prop correctamente
                 />
-                <img src="/path/to/LogoClinica.png" alt="Logo Clínica" className="logo" />
+                
                 <h1>Clínica Star Platinum</h1>
                 <p>Risus noster stella!</p>
             </div>
