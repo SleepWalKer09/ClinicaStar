@@ -13,6 +13,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 origins = [
     "http://localhost:3000",
+    "https://SleepWalKer09.github.io/ClinicaStar"
 ]
 app.add_middleware(
     CORSMiddleware,
