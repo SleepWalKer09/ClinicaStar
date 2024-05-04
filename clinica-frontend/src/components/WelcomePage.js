@@ -22,7 +22,7 @@ const WelcomePage = () => {
                 </div>
                 <div className="text-center mb-3">
                     <p>Bienvenido, agenda ahora una cita con uno de nuestros especialistas, con mucho gusto te atenderemos pues tu sonrisa es nuestra estrella.</p>
-                    <p className="mb-4">¿No tienes cuenta? Aquí puedes registrarte</p>
+                    <p className="mb-4">¿No tienes cuenta? Aquí puedes registrarte.</p>
                 </div>
                 <div className="d-flex justify-content-center gap-2">
                     <button className="btn btn-info" onClick={handleRegisterClick}>Registrarse</button>
