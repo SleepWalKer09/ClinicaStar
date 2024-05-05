@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ClinicaStar/static/css/main.77f0fe58.css",
+    "main.js": "/ClinicaStar/static/js/main.07d44520.js",
+    "static/js/453.635b763d.chunk.js": "/ClinicaStar/static/js/453.635b763d.chunk.js",
+    "static/media/LogoClinica.png": "/ClinicaStar/static/media/LogoClinica.64920cdee78f6c4b1b9f.png",
+    "index.html": "/ClinicaStar/index.html",
+    "main.77f0fe58.css.map": "/ClinicaStar/static/css/main.77f0fe58.css.map",
+    "main.07d44520.js.map": "/ClinicaStar/static/js/main.07d44520.js.map",
+    "453.635b763d.chunk.js.map": "/ClinicaStar/static/js/453.635b763d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.77f0fe58.css",
+    "static/js/main.07d44520.js"
+  ]
+}
