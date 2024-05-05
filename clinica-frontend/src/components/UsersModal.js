@@ -11,7 +11,7 @@ const UsersModal = ({ onClose }) => {
         const fetchUsers = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:8000/read_usuarios/', {
+                const response = await axios.get('http://localhost:8000/ClinicaStar/read_usuarios/', {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
                 setUsers(response.data);

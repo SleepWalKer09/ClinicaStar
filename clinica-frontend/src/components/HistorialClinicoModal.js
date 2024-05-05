@@ -9,7 +9,6 @@ const ConsultarHistorialModal = ({ onClose, userRole }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [procedimientos, setProcedimientos] = useState([]);
-    // Corrección: Añadir estado para `busquedaId`
     const [busquedaId, setBusquedaId] = useState('');
     const [userId, setUserId] = useState(null);
 
@@ -17,24 +16,22 @@ const ConsultarHistorialModal = ({ onClose, userRole }) => {
         const token = localStorage.getItem('token');
         if (token) {
             const decoded = jwtDecode(token);
-            setUserId(decoded.sub); // Establece el ID del usuario con el valor decodificado
+            setUserId(decoded.sub);
         }
-    }, []); // Este useEffect solo se ejecuta una vez al montar el componente
+    }, []);
     
     useEffect(() => {
         if (userId && userRole === 'Paciente') {
-            // Si hay un userId y el rol es paciente, entonces busca los historiales
             fetchHistoriales(userId);
         } else if (userRole === 'Especialista') {
-            // Si el usuario es especialista, busca los procedimientos
             fetchProcedimientos();
         }
-        // Esta dependencia asegura que la lógica se ejecute cada vez que cambie el userId o el userRole
+        
     }, [userId, userRole]); 
     const fetchProcedimientos = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:8000/read_procedimientos/', {
+            const response = await axios.get('http://localhost:8000/ClinicaStar/read_procedimientos/', {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             setProcedimientos(response.data);
@@ -49,7 +46,7 @@ const ConsultarHistorialModal = ({ onClose, userRole }) => {
     const fetchHistoriales = async (usuarioId) => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:8000/read_historiales_clinicos/${usuarioId}`);
+            const response = await axios.get(`http://localhost:8000/ClinicaStar/read_historiales_clinicos/${usuarioId}`);
             setHistoriales(response.data);
         } catch (error) {
             setError('Error al cargar el historial clínico.');
@@ -69,7 +66,6 @@ const ConsultarHistorialModal = ({ onClose, userRole }) => {
     };
 
     const handleEditarHistorial = async (e) => {
-        //e.preventDefault(); // Esto previene la recarga de la página
         if (!historialSeleccionado) {
             return;
         }
@@ -78,7 +74,7 @@ const ConsultarHistorialModal = ({ onClose, userRole }) => {
             const config = {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             };
-            const response = await axios.put(`http://localhost:8000/update_historial_clinico/${historialSeleccionado.id_historial}`, historialSeleccionado, config);
+            const response = await axios.put(`http://localhost:8000/ClinicaStar/update_historial_clinico/${historialSeleccionado.id_historial}`, historialSeleccionado, config);
             if (response.data) {
                 alert('Historial clínico actualizado con éxito');
                 fetchHistoriales(historialSeleccionado.id_usuario); // Asegúrate de que esta función refresque correctamente los historiales
@@ -100,14 +96,10 @@ const ConsultarHistorialModal = ({ onClose, userRole }) => {
             };
     
             // Llamada al endpoint de eliminación del historial clínico
-            await axios.delete(`http://localhost:8000/delete_historial_clinico/${historialId}`, config);
+            await axios.delete(`http://localhost:8000/ClinicaStar/delete_historial_clinico/${historialId}`, config);
     
             // Mostrar un mensaje de éxito
             alert('Historial clínico eliminado con éxito');
-            // Opcionalmente, recargar los historiales clínicos para reflejar los cambios
-            // Suponiendo que existe una función fetchHistoriales que recarga los historiales
-            // y que necesitas el id_usuario para hacerlo, necesitarías mantenerlo en el estado
-            // o encontrarlo de alguna otra manera.
             // fetchHistoriales(id_usuario);
         } catch (error) {
             console.error('Error al eliminar el historial clínico:', error);

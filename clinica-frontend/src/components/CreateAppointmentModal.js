@@ -53,7 +53,7 @@ const CreateAppointmentModal = ({ onClose, onCitaCreated, selectedDate }) => {
 
         console.log("Enviando datos de cita:", citaData); 
         try {
-            const response = await axios.post('http://localhost:8000/create_citas/', citaData, {
+            const response = await axios.post('http://localhost:8000/ClinicaStar/create_citas/', citaData, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             onCitaCreated(response.data);

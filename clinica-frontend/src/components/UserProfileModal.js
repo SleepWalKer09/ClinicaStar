@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { Modal, Button, Form, Table } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 const UserProfileModal = ({ onClose, userId }) => {
     const [userData, setUserData] = useState({
@@ -29,9 +29,9 @@ const UserProfileModal = ({ onClose, userId }) => {
                     throw new Error("No token found");
                 }
                 const decoded = jwtDecode(token);
-                const userId = decoded.sub; // Asumiendo que 'sub' es el ID del usuario en tu token
+                const userId = decoded.sub;
 
-                const response = await axios.get(`http://localhost:8000/read_usuarios/${userId}`, {
+                const response = await axios.get(`http://localhost:8000/ClinicaStar/read_usuarios/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setUserData(response.data);
@@ -59,10 +59,12 @@ const UserProfileModal = ({ onClose, userId }) => {
             const decoded = jwtDecode(token);
             const userId = decoded.sub;
 
-            const response = await axios.put(`http://localhost:8000/update_usuarios/${userId}`, userData, {
+            const response = await axios.put(`http://localhost:8000/ClinicaStar/update_usuarios/${userId}`, userData, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-            setSuccessMessage('Los datos del perfil han sido actualizados con éxito.');
+            if (response.status === 200) {
+                setSuccessMessage('Los datos del perfil han sido actualizados con éxito.');
+            }
             setTimeout(() => {
                 setSuccessMessage('');
                 onClose();

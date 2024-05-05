@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Si es necesario redireccionar después de alguna acción
+// import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Table } from 'react-bootstrap';
 
 const ConsultarUsuariosModal = ({ onClose }) => {
     const [usuarios, setUsuarios] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [setLoading] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -15,7 +15,7 @@ const ConsultarUsuariosModal = ({ onClose }) => {
     const fetchUsuarios = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:8000/read_usuarios/');
+            const response = await axios.get('http://localhost:8000/ClinicaStar/read_usuarios/');
             setUsuarios(response.data);
         } catch (error) {
             console.error('Error al cargar los usuarios:', error);
@@ -34,7 +34,7 @@ const ConsultarUsuariosModal = ({ onClose }) => {
     
         setLoading(true);
         try {
-            await axios.delete(`http://localhost:8000/delete_usuarios/${usuarioId}`, {
+            await axios.delete(`http://localhost:8000/ClinicaStar/delete_usuarios/${usuarioId}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             alert('Usuario eliminado con éxito');

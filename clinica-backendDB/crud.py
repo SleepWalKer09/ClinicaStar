@@ -118,14 +118,14 @@ def create_cita(db: Session, cita: schemas.CitaCreate):
     db.refresh(db_cita)
     return db_cita
 
-def get_citas_por_usuario(db: Session, usuario_id: int, rol: str, skip: int = 0, limit: int = 10):
+def get_citas_por_usuario(db: Session, usuario_id: int, rol: str):
     if rol.lower() == "paciente":
-        return db.query(models.Cita).filter(models.Cita.id_paciente == usuario_id).offset(skip).limit(limit).all()
+        return db.query(models.Cita).filter(models.Cita.id_paciente == usuario_id).all()
     elif rol.lower() == "especialista":
         # Primero, encuentra el id_especialista que corresponde al id_usuario dado
         especialista = db.query(models.Especialista).filter(models.Especialista.id_usuario == usuario_id).first()
         if especialista:
-            return db.query(models.Cita).filter(models.Cita.id_especialista == especialista.id_especialista).offset(skip).limit(limit).all()
+            return db.query(models.Cita).filter(models.Cita.id_especialista == especialista.id_especialista).all()
         else:   
             return []
     else:

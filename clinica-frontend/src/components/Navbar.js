@@ -1,25 +1,25 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ onLogout, showAddSpecialist, onAddSpecialist, showConsultUsers, onConsultarUsuarios,onConsultUsers, onMiPerfilClick, userRole, onOpenProfileModal,onProcedimientosClick, onConsultarHistorial }) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const handleAddSpecialistClick = () => {
-        onAddSpecialist();
-    };
+    // const handleAddSpecialistClick = () => {
+    //     onAddSpecialist();
+    // };
 
-    const handleConsultarUsuariosClick = () => {
-        onConsultarUsuarios();
-    };
+    // const handleConsultarUsuariosClick = () => {
+    //     onConsultarUsuarios();
+    // };
 
-    const handleMiPerfilClick = () => {
-        onMiPerfilClick();
-    };
+    // const handleMiPerfilClick = () => {
+    //     onMiPerfilClick();
+    // };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">Clínica Star Platinum</a>
+                <label>Clínica Star Platinum</label>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>

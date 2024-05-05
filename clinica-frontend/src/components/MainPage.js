@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import axios from 'axios';
+//import axios from 'axios';
 import Navbar from './Navbar';
 import CalendarComponent from './Calendar';
 import AppointmentDetailsModal from './AppointmentDetailsModal';

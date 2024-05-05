@@ -37,7 +37,7 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
         const fetchCitaDetails = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`http://localhost:8000/read_citas/${citaId}`, {
+                const response = await axios.get(`http://localhost:8000/ClinicaStar/read_citas/${citaId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const formattedFechaHora = format(parseISO(response.data.fecha_hora), "yyyy-MM-dd'T'HH:mm");
@@ -49,9 +49,11 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
                 setLoading(false);
             }
         };
+
+
         const fetchProcedimientos = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/read_procedimientos/');
+                const response = await axios.get('http://localhost:8000/ClinicaStar/read_procedimientos/');
                 setProcedimientos(response.data);
             } catch (error) {
                 console.error('Error al cargar procedimientos:', error);
@@ -83,27 +85,27 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
 
     const handleUpdate = async () => {
         if (!isEditing) {
-            // Si no está en modo edición, habilitar la edición y detener aquí
             setIsEditing(true);
             return;
         }
-
-        // Si está en modo edición, proceder a guardar los cambios
+    
         setLoading(true);
         try {
-            const response = await axios.put(`http://localhost:8000/update_citas/${citaId}`, citaData, {
+            const response = await axios.put(`http://localhost:8000/ClinicaStar/update_citas/${citaId}`, citaData, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
-            onCitaUpdated(response.data);
-            setIsEditing(false); // Deshabilitar la edición después de actualizar
-            setSuccessMessage('La cita ha sido actualizada con éxito.');
-            setTimeout(() => {
-                setSuccessMessage('');
-                onClose();
-            }, 3000); // Cierra el modal y limpia el mensaje después de 3 segundos
+            if (response.status === 200) {
+                onCitaUpdated(response.data);  // Actualiza el estado en CalendarComponent
+                setIsEditing(false);
+                setSuccessMessage('La cita ha sido actualizada con éxito.');
+                setTimeout(() => {
+                    setSuccessMessage('');
+                    onClose();
+                }, 3000);
+            }
         } catch (err) {
+            console.error("Error al actualizar la cita:", err);
             setError('Error al actualizar la cita.');
-            console.error(err);
         } finally {
             setLoading(false);
         }
@@ -112,7 +114,7 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
     const handleDelete = async () => {
         setLoading(true);
         try {
-            await axios.delete(`http://localhost:8000/delete_citas/${citaId}`, {
+            await axios.delete(`http://localhost:8000/ClinicaStar/delete_citas/${citaId}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             onCitaDeleted(citaId);
@@ -122,8 +124,8 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
                 onClose();
             }, 3000); 
         } catch (err) {
+            console.error("Error al eliminar la cita:", err);
             setError('Error al eliminar la cita.');
-            console.error(err);
         } finally {
             setLoading(false);
         }
@@ -156,13 +158,13 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
     
         try {
             const response = await axios.post(
-                `http://localhost:8000/create_historial_clinico/`,historialClinicoData,
+                `http://localhost:8000/ClinicaStar/create_historial_clinico/`,historialClinicoData,
                 { headers }
             );
     
             if (response.data) {
                 setSuccessMessage('Historial clínico creado con éxito.');
-                // Aquí puedes implementar cualquier lógica adicional tras la creación exitosa, como cerrar el modal o recargar datos.
+
             }
         } catch (error) {
             console.error('Error al crear historial clínico:', error);
@@ -187,7 +189,7 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
                         type="datetime-local"
                         name="fecha_hora"
                         value={citaData.fecha_hora}
-                        onChange={handleUpdate}
+                        onChange={handleStateChange}  //handleUpdate
                         disabled={!isEditing}
                     />
                 </Form.Group>
@@ -210,7 +212,7 @@ const AppointmentDetailsModal = ({ citaId, onClose, onCitaUpdated, onCitaDeleted
                         as="textarea"
                         name="motivo"
                         value={citaData.motivo}
-                        onChange={handleUpdate}
+                        onChange={handleStateChange}//handleUpdate
                         disabled={!isEditing}
                     />
                 </Form.Group>

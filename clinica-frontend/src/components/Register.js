@@ -26,7 +26,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8000/create_usuarios/', formData);
+            await axios.post('http://localhost:8000/ClinicaStar/create_usuarios/', formData);
             navigate('/login', { state: { message: 'Registro exitoso. Por favor, inicie sesión con su nueva cuenta.' } });
         } catch (error) {
             setError(error.response?.data?.detail || 'Error al registrar el usuario.');

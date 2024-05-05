@@ -12,6 +12,8 @@ const AddEspecialistaModal = ({ onClose, onEspecialistaAdded }) => {
     const [selectedEspecialistaId, setSelectedEspecialistaId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
 
     useEffect(() => {
         fetchEspecialistas();
@@ -33,7 +35,7 @@ const AddEspecialistaModal = ({ onClose, onEspecialistaAdded }) => {
     const fetchEspecialistas = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:8000/read_especialistas/', {
+            const response = await axios.get('http://localhost:8000/ClinicaStar/read_especialistas/', {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             setEspecialistas(response.data);
@@ -51,17 +53,19 @@ const AddEspecialistaModal = ({ onClose, onEspecialistaAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
+    
         const endpoint = selectedEspecialistaId ? `update_especialista/${selectedEspecialistaId}` : 'create_especialistas/';
         const method = selectedEspecialistaId ? axios.put : axios.post;
-
+    
         try {
-            await method(`http://localhost:8000/${endpoint}`, especialistaData, {
+            await method(`http://localhost:8000/ClinicaStar/${endpoint}`, especialistaData, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
-            fetchEspecialistas(); // Refresh the list of especialistas
+            fetchEspecialistas();
+            setSuccessMessage(`Especialista ${selectedEspecialistaId ? 'actualizado' : 'agregado'} con éxito.`);
+            setTimeout(() => setSuccessMessage(''), 5000); 
             resetForm();
-            onClose();
+            onClose(); 
         } catch (error) {
             setError(`Error al ${selectedEspecialistaId ? 'actualizar' : 'agregar'} el especialista.`);
             console.error(error);
@@ -85,7 +89,7 @@ const AddEspecialistaModal = ({ onClose, onEspecialistaAdded }) => {
         if (isConfirmed) {
             setLoading(true);
             try {
-                await axios.delete(`http://localhost:8000/delete_especialista/${especialistaId}`, {
+                await axios.delete(`http://localhost:8000/ClinicaStar/delete_especialista/${especialistaId}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
                 const updatedEspecialistas = especialistas.filter(especialista => especialista.id_especialista !== especialistaId);
@@ -108,8 +112,9 @@ const AddEspecialistaModal = ({ onClose, onEspecialistaAdded }) => {
                 <Modal.Title>{selectedEspecialistaId ? 'Actualizar' : 'Agregar'} Especialista</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {error && <div className="alert alert-danger">{error}</div>}
-                <Form onSubmit={handleSubmit}>
+            {error && <div className="alert alert-danger">{error}</div>}
+            {successMessage && <div className="alert alert-success">{successMessage}</div>}
+            <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
                         <Form.Label>ID Usuario:</Form.Label>
                         <Form.Control

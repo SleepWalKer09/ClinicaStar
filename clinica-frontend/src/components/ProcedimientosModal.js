@@ -23,7 +23,7 @@ const ProcedimientosModal = ({ onClose }) => {
     const fetchProcedimientos = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:8000/read_procedimientos/');
+            const response = await axios.get('http://localhost:8000/ClinicaStar/read_procedimientos/');
             setProcedimientos(response.data);
         } catch (error) {
             setError('Error al cargar procedimientos.');
@@ -46,7 +46,7 @@ const ProcedimientosModal = ({ onClose }) => {
     const handleDelete = async (procedimientoId) => {
         setLoading(true);
         try {
-            await axios.delete(`http://localhost:8000/delete_procedimiento/${procedimientoId}`, {
+            await axios.delete(`http://localhost:8000/ClinicaStar/delete_procedimiento/${procedimientoId}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
             fetchProcedimientos();
@@ -71,7 +71,7 @@ const ProcedimientosModal = ({ onClose }) => {
         setLoading(true);
         setError('');
     
-        const apiURL = 'http://localhost:8000';
+        const apiURL = 'http://localhost:8000/ClinicaStar';
         const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
     
         try {
