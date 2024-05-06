@@ -1,4 +1,5 @@
 name: Backend Build and Push DockerHub
+
 on:
   push:
     branches:
@@ -34,6 +35,7 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:latest
+
     env:
       DOCKER_CLI_EXPERIMENTAL: enabled
       DOCKER_BUILDKIT: 1
