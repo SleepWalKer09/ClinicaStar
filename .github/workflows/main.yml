@@ -13,6 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+    - name: Test environment variable accessibility
+      run: |
+        echo "Dummy Secret Length: ${#DUMMY_SECRET}"
+      env:
+        DUMMY_SECRET: ${{ secrets.TEST_SECRET }}
+
     - name: Diagnose environment variables
       run: |
         echo "Username: ${{ secrets.DOCKERHUB_USERNAME }}"
@@ -24,7 +30,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
