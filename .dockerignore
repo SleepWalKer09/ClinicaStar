@@ -1,0 +1,7 @@
+database.db
+database.sqbpro
+*.sqbpro
+node_modules
+*.log
+.DS_Store
+

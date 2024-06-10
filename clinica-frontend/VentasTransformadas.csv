@@ -1,0 +1,41 @@
+id_venta,ID_Usuario,id_cita,tratamiento,costo_total,fecha,ID_Especialista,metodo_pago,estado_pago,medicamentos_recetados
+1,132,1001,Limpieza Dental,50,01/05/2024,10,Tarjeta de Crédito,Pagado,"Ibuprofeno 400mg, Paracetamol 500mg"
+2,133,1002,Extracción de Muelas,150,02/05/2024,11,Efectivo,Meses sin intereses,Amoxicilina 500mg
+3,134,1003,Blanqueamiento Dental,200,03/05/2024,12,Tarjeta de Débito,Pagado,Diclofenaco 100mg
+4,135,1004,Carillas Dentales,300,04/05/2024,13,Transferencia Bancaria,Pagado,Paracetamol 500mg
+5,136,1005,Implantes Dentales,1000,05/05/2024,14,Efectivo,Pagado,"Ibuprofeno 400mg, Amoxicilina 500mg"
+6,137,1006,Ortodoncia,500,06/05/2024,15,Tarjeta de Crédito,Meses sin intereses,N/A
+7,138,1007,Limpieza Dental,50,07/05/2024,16,Efectivo,Pagado,Ibuprofeno 400mg
+8,139,1008,Extracción de Muelas,150,08/05/2024,17,Tarjeta de Débito,Meses sin intereses,Amoxicilina 500mg
+9,140,1009,Blanqueamiento Dental,200,09/05/2024,18,Transferencia Bancaria,Pagado,N/A
+10,141,1010,Carillas Dentales,300,10/05/2024,19,Efectivo,Pagado,Paracetamol 500mg
+11,142,1011,Implantes Dentales,1000,11/05/2024,20,Tarjeta de Crédito,Meses sin intereses,"Ibuprofeno 400mg, Amoxicilina 500mg"
+12,143,1012,Ortodoncia,500,12/05/2024,21,Tarjeta de Débito,Pagado,N/A
+13,144,1013,Limpieza Dental,50,13/05/2024,22,Transferencia Bancaria,Pagado,Ibuprofeno 400mg
+14,145,1014,Extracción de Muelas,150,14/05/2024,23,Efectivo,Pagado,Amoxicilina 500mg
+15,146,1015,Blanqueamiento Dental,200,15/05/2024,24,Tarjeta de Crédito,Meses sin intereses,N/A
+16,147,1016,Carillas Dentales,300,16/05/2024,25,Tarjeta de Débito,Pagado,Paracetamol 500mg
+17,148,1017,Implantes Dentales,1000,17/05/2024,26,Transferencia Bancaria,Pagado,"Ibuprofeno 400mg, Amoxicilina 500mg"
+18,149,1018,Ortodoncia,500,18/05/2024,27,Efectivo,Pagado,N/A
+19,150,1019,Limpieza Dental,50,19/05/2024,28,Tarjeta de Crédito,Meses sin intereses,Ibuprofeno 400mg
+20,151,1020,Extracción de Muelas,150,20/05/2024,29,Tarjeta de Débito,Pagado,Amoxicilina 500mg
+21,152,1021,Blanqueamiento Dental,200,21/05/2024,30,Transferencia Bancaria,Pagado,N/A
+22,153,1022,Carillas Dentales,300,22/05/2024,31,Efectivo,Pagado,Paracetamol 500mg
+23,154,1023,Implantes Dentales,1000,23/05/2024,32,Tarjeta de Crédito,Meses sin intereses,"Ibuprofeno 400mg, Amoxicilina 500mg"
+24,155,1024,Ortodoncia,500,24/05/2024,33,Tarjeta de Débito,Pagado,N/A
+25,156,1025,Limpieza Dental,50,25/05/2024,34,Transferencia Bancaria,Pagado,Ibuprofeno 400mg
+26,157,1026,Extracción de Muelas,150,26/05/2024,35,Efectivo,Pagado,Amoxicilina 500mg
+27,158,1027,Blanqueamiento Dental,200,27/05/2024,36,Tarjeta de Crédito,Meses sin intereses,N/A
+28,159,1028,Carillas Dentales,300,28/05/2024,37,Tarjeta de Débito,Pagado,Paracetamol 500mg
+29,160,1029,Implantes Dentales,1000,29/05/2024,38,Transferencia Bancaria,Pagado,"Ibuprofeno 400mg, Amoxicilina 500mg"
+30,161,1030,Ortodoncia,500,30/05/2024,39,Efectivo,Pagado,N/A
+31,162,1031,Limpieza Dental,50,01/06/2024,40,Tarjeta de Crédito,Meses sin intereses,Ibuprofeno 400mg
+32,163,1032,Extracción de Muelas,150,02/06/2024,41,Tarjeta de Débito,Pagado,Amoxicilina 500mg
+33,164,1033,Blanqueamiento Dental,200,03/06/2024,42,Transferencia Bancaria,Pagado,N/A
+34,165,1034,Carillas Dentales,300,04/06/2024,43,Efectivo,Pagado,Paracetamol 500mg
+35,166,1035,Implantes Dentales,1000,05/06/2024,44,Tarjeta de Crédito,Pendiente,"Ibuprofeno 400mg, Amoxicilina 500mg"
+36,167,1036,Ortodoncia,500,06/06/2024,45,Tarjeta de Débito,Pagado,N/A
+37,168,1037,Limpieza Dental,50,07/06/2024,46,Transferencia Bancaria,Pagado,Ibuprofeno 400mg
+38,169,1038,Extracción de Muelas,150,08/06/2024,47,Efectivo,Pagado,Amoxicilina 500mg
+39,170,1039,Blanqueamiento Dental,200,09/06/2024,48,Tarjeta de Crédito,Pendiente,N/A
+40,171,1040,Carillas Dentales,300,10/06/2024,49,Tarjeta de Débito,Pagado,Paracetamol 500mg

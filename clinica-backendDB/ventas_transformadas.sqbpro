@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/chris/Documents/Python/Bootcamps_CodFac/DataEng/clinica-backendDB/database.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="3398"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainventas"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Citas" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="55"/><column index="2" value="86"/><column index="3" value="105"/><column index="4" value="175"/><column index="5" value="77"/><column index="6" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="ventas" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="65"/><column index="2" value="78"/><column index="3" value="51"/><column index="4" value="138"/><column index="5" value="83"/><column index="6" value="129"/><column index="7" value="105"/><column index="8" value="139"/><column index="9" value="119"/><column index="10" value="234"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="ventas_transformadas" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="65"/><column index="2" value="78"/><column index="3" value="51"/><column index="4" value="138"/><column index="5" value="83"/><column index="6" value="73"/><column index="7" value="105"/><column index="8" value="139"/><column index="9" value="119"/><column index="10" value="234"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="scripts ventas.sqbpro">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sqlb_project&gt;&lt;db path=&quot;C:/Users/chris/Documents/Python/Bootcamps_CodFac/DataEng/clinica-backendDB/database.db&quot; readonly=&quot;0&quot; foreign_keys=&quot;1&quot; case_sensitive_like=&quot;0&quot; temp_store=&quot;0&quot; wal_autocheckpoint=&quot;1000&quot; synchronous=&quot;2&quot;/&gt;&lt;attached/&gt;&lt;window&gt;&lt;main_tabs open=&quot;structure browser pragmas query&quot; current=&quot;1&quot;/&gt;&lt;/window&gt;&lt;tab_structure&gt;&lt;column_width id=&quot;0&quot; width=&quot;300&quot;/&gt;&lt;column_width id=&quot;1&quot; width=&quot;0&quot;/&gt;&lt;column_width id=&quot;2&quot; width=&quot;100&quot;/&gt;&lt;column_width id=&quot;3&quot; width=&quot;3398&quot;/&gt;&lt;column_width id=&quot;4&quot; width=&quot;0&quot;/&gt;&lt;expanded_item id=&quot;0&quot; parent=&quot;1&quot;/&gt;&lt;expanded_item id=&quot;1&quot; parent=&quot;1&quot;/&gt;&lt;expanded_item id=&quot;2&quot; parent=&quot;1&quot;/&gt;&lt;expanded_item id=&quot;3&quot; parent=&quot;1&quot;/&gt;&lt;/tab_structure&gt;&lt;tab_browse&gt;&lt;current_table name=&quot;4,5:mainCitas&quot;/&gt;&lt;default_encoding codec=&quot;&quot;/&gt;&lt;browse_table_settings&gt;&lt;table schema=&quot;main&quot; name=&quot;Citas&quot; show_row_id=&quot;0&quot; encoding=&quot;&quot; plot_x_axis=&quot;&quot; unlock_view_pk=&quot;_rowid_&quot;&gt;&lt;sort/&gt;&lt;column_widths&gt;&lt;column index=&quot;1&quot; value=&quot;55&quot;/&gt;&lt;column index=&quot;2&quot; value=&quot;86&quot;/&gt;&lt;column index=&quot;3&quot; value=&quot;105&quot;/&gt;&lt;column index=&quot;4&quot; value=&quot;175&quot;/&gt;&lt;column index=&quot;5&quot; value=&quot;77&quot;/&gt;&lt;column index=&quot;6&quot; value=&quot;300&quot;/&gt;&lt;/column_widths&gt;&lt;filter_values/&gt;&lt;conditional_formats/&gt;&lt;row_id_formats/&gt;&lt;display_formats/&gt;&lt;hidden_columns/&gt;&lt;plot_y_axes/&gt;&lt;global_filter/&gt;&lt;/table&gt;&lt;table schema=&quot;main&quot; name=&quot;sqlite_sequence&quot; show_row_id=&quot;0&quot; encoding=&quot;&quot; plot_x_axis=&quot;&quot; unlock_view_pk=&quot;_rowid_&quot;&gt;&lt;sort/&gt;&lt;column_widths&gt;&lt;column index=&quot;1&quot; value=&quot;97&quot;/&gt;&lt;column index=&quot;2&quot; value=&quot;40&quot;/&gt;&lt;/column_widths&gt;&lt;filter_values/&gt;&lt;conditional_formats/&gt;&lt;row_id_formats/&gt;&lt;display_formats/&gt;&lt;hidden_columns/&gt;&lt;plot_y_axes/&gt;&lt;global_filter/&gt;&lt;/table&gt;&lt;table schema=&quot;main&quot; name=&quot;ventas&quot; show_row_id=&quot;0&quot; encoding=&quot;&quot; plot_x_axis=&quot;&quot; unlock_view_pk=&quot;_rowid_&quot;&gt;&lt;sort/&gt;&lt;column_widths&gt;&lt;column index=&quot;1&quot; value=&quot;65&quot;/&gt;&lt;column index=&quot;2&quot; value=&quot;78&quot;/&gt;&lt;column index=&quot;3&quot; value=&quot;51&quot;/&gt;&lt;column index=&quot;4&quot; value=&quot;138&quot;/&gt;&lt;column index=&quot;5&quot; value=&quot;83&quot;/&gt;&lt;column index=&quot;6&quot; value=&quot;129&quot;/&gt;&lt;column index=&quot;7&quot; value=&quot;105&quot;/&gt;&lt;column index=&quot;8&quot; value=&quot;139&quot;/&gt;&lt;column index=&quot;9&quot; value=&quot;119&quot;/&gt;&lt;column index=&quot;10&quot; value=&quot;234&quot;/&gt;&lt;/column_widths&gt;&lt;filter_values/&gt;&lt;conditional_formats/&gt;&lt;row_id_formats/&gt;&lt;display_formats/&gt;&lt;hidden_columns/&gt;&lt;plot_y_axes/&gt;&lt;global_filter/&gt;&lt;/table&gt;&lt;table schema=&quot;main&quot; name=&quot;ventas_transformadas&quot; show_row_id=&quot;0&quot; encoding=&quot;&quot; plot_x_axis=&quot;&quot; unlock_view_pk=&quot;_rowid_&quot;&gt;&lt;sort/&gt;&lt;column_widths&gt;&lt;column index=&quot;1&quot; value=&quot;65&quot;/&gt;&lt;column index=&quot;2&quot; value=&quot;78&quot;/&gt;&lt;column index=&quot;3&quot; value=&quot;51&quot;/&gt;&lt;column index=&quot;4&quot; value=&quot;138&quot;/&gt;&lt;column index=&quot;5&quot; value=&quot;83&quot;/&gt;&lt;column index=&quot;6&quot; value=&quot;73&quot;/&gt;&lt;column index=&quot;7&quot; value=&quot;105&quot;/&gt;&lt;column index=&quot;8&quot; value=&quot;139&quot;/&gt;&lt;column index=&quot;9&quot; value=&quot;119&quot;/&gt;&lt;column index=&quot;10&quot; value=&quot;234&quot;/&gt;&lt;/column_widths&gt;&lt;filter_values/&gt;&lt;conditional_formats/&gt;&lt;row_id_formats/&gt;&lt;display_formats/&gt;&lt;hidden_columns/&gt;&lt;plot_y_axes/&gt;&lt;global_filter/&gt;&lt;/table&gt;&lt;/browse_table_settings&gt;&lt;/tab_browse&gt;&lt;tab_sql&gt;&lt;sql name=&quot;SQL 1&quot;&gt;-- models/ventas_transformadas_table.sql
+--DROP TABLE ventas_transformadas
+
+CREATE TABLE ventas_transformadas (
+    id_venta INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Usuario INT NOT NULL,
+    id_cita INT NOT NULL,
+    tratamiento VARCHAR(255) NOT NULL,
+    costo_total DECIMAL(10,2) NOT NULL,
+    fecha DATETIME NOT NULL,
+    ID_Especialista INT,
+    metodo_pago VARCHAR(50),
+    estado_pago VARCHAR(50),
+    medicamentos_recetados TEXT,
+);
+
+
+
+
+
+
+
+DROP TABLE ventas_transformadas
+create table if not exists ventas_transformadas as
+with ventas_cte as (
+    select
+        id_venta,
+        ID_Usuario,
+        id_cita,
+        tratamiento,
+        cast(replace(costo_total, '$', '') as decimal(10,2)) as costo_total,
+        fecha,
+        ID_Especialista,
+        metodo_pago,
+        estado_pago,
+        medicamentos_recetados
+    from
+        ventas
+)
+
+select
+    id_venta,
+    ID_Usuario,
+    id_cita,
+    tratamiento,
+    costo_total,
+    date(fecha) as fecha,
+    ID_Especialista,
+    metodo_pago,
+    estado_pago,
+    medicamentos_recetados
+from
+    ventas_cte;
+&lt;/sql&gt;&lt;current_tab id=&quot;0&quot;/&gt;&lt;/tab_sql&gt;&lt;/sqlb_project&gt;
+
+
+
+</sql><sql name="SQL 3">select
+    id_venta,
+    ID_Usuario,
+    id_cita,
+    lower(tratamiento) as tratamiento,  -- Convertir tratamiento a minúsculas
+    cast(replace(costo_total, '$', '') as decimal(10,2)) as costo_total,  -- Limpiar y convertir costo_total a decimal
+    date(fecha) as fecha,  -- Normalizar fecha a solo la parte de la fecha
+    strftime('%Y', fecha) as año,  -- Crear columna derivada para el año
+    strftime('%m', fecha) as mes,  -- Crear columna derivada para el mes
+    ID_Especialista,
+    case 
+        when lower(trim(metodo_pago)) = 'tarjeta de crédito' then 1
+        when lower(trim(metodo_pago)) = 'efectivo' then 2
+        when lower(trim(metodo_pago)) = 'tarjeta de débito' then 3
+        when lower(trim(metodo_pago)) = 'transferencia bancaria' then 4
+        else null
+    end as metodo_pago_codificado,  -- Codificar metodo_pago
+    lower(trim(metodo_pago)) as metodo_pago,  -- Limpiar y estandarizar metodo_pago original
+    case
+        when lower(trim(estado_pago)) = 'meses sin intereses' then 2
+        when lower(trim(estado_pago)) = 'pagado' then 3
+        when lower(trim(estado_pago)) = 'pendiente' then 1
+        else null
+    end as estado_pago_codificado,  -- Codificar estado_pago
+    lower(trim(estado_pago)) as estado_pago,  -- Limpiar y estandarizar estado_pago original
+    replace(medicamentos_recetados, '\n', ' ') as medicamentos_recetados,  -- Limpiar caracteres especiales en medicamentos_recetados
+    length(replace(medicamentos_recetados, ' ', '')) - length(replace(replace(medicamentos_recetados, ' ', ''), ',', '')) + 1 as cantidad_medicamentos  -- Contar cantidad de medicamentos
+from
+    ventas</sql><current_tab id="0"/></tab_sql></sqlb_project>
